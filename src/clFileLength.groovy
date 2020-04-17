@@ -1,6 +1,6 @@
 //замыкание считает длину файла в байтах
 def fileLength = {name ->
-    file = new File(name)
+    def file = new File(name)
     if(!file.exists()) {
         println "file not found"
     }
