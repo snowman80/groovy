@@ -3,15 +3,17 @@
 
 //папка, куда будут сохранены файлы
 def path = "D:\\EPAM\\groovy_projects\\files_scripts\\"
+def separator = System.getProperty("line.separator")
 //генератор чисел и запись их в файл по одному в каждой строке
 def fileWriter = {filename ->
         def sb = new StringBuilder()
-        (1..99999).each {
-        sb << (int)(Math.random()*200)+1
-        sb  << "\n"
+        99999.times {
+        sb << 1 + (int)(Math.random()*200)
+
+        sb  << separator
         }
         //дописываем  последнюю строку без перевода каретки
-        sb << (int)(Math.random()*200)+1
+        sb << 1 + (int)(Math.random()*200)
         filename << sb.toString()
  }
 //создаем файлы и сразу их заполняем
