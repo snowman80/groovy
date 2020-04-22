@@ -4,24 +4,20 @@ def path = "D:\\EPAM\\groovy_projects\\files_scripts\\"
 //определяем системный разделитель строк
 def separator = System.getProperty("line.separator")
 
-//считываем файлы в list построчно
-def list1 = new File(path, 'file1.txt').collect {it}
-def list2 = new File(path, 'file2.txt').collect {it}
-def list3 = new File(path, 'file3.txt').collect {it}
-def list4 = new File(path, 'file4.txt').collect {it}
-def list5 = new File(path, 'file5.txt').collect {it}
-def list6 = new File(path, 'file6.txt').collect {it}
-def list7 = new File(path, 'file7.txt').collect {it}
-def list8 = new File(path, 'file8.txt').collect {it}
-def list9 = new File(path, 'file9.txt').collect {it}
-def list10 = new File(path, 'file10.txt').collect {it}
+//создаем List файлов
+def names = ["file1.txt", "file2.txt", "file3.txt", "file4.txt", "file5.txt", "file6.txt", "file7.txt", "file8.txt", "file9.txt", "file10.txt"]
+ArrayList listOfFiles = new ArrayList<>()
+names.each {listOfFiles.add(new File(path, it))}
 
-//результирующая строка
+//создаем массив reader`ов
+ArrayList readerlist = new ArrayList()
+listOfFiles.each {readerlist.add(new BufferedReader(new FileReader(it)))}
+
+//записываем в sb построчно из каждого Bufferedreader
 def sb = new StringBuilder()
-
-(0..99999).each {
-    sb << (list1[it]+ "," + list2[it] + "," + list3[it]+ "," + list4[it]+ "," + list5[it]+ "," + list6[it]+ "," + list7[it]+ "," + list8[it]+ "," + list9[it]+ "," + list10[it] + separator)
-}
+100000.times{readerlist.each {sb << it.readLine() + ","}
+                sb << separator
+                }
 
 //записываем результат в файл
 File resultFile = new File(path, "result.csv")
