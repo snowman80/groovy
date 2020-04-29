@@ -33,8 +33,8 @@ def xmlFile = new File(path, "square.xml")
 xmlFile << sb.toString()
 
 //6.2 используем MarkupBuilder
-def writer = new StringWriter()
-def builder = new MarkupBuilder(writer)
+
+def builder = new MarkupBuilder(new FileWriter(new File(path, "square2.xml")))
 
     builder.root {
 map.each {elem -> element(id: elem.key) {
@@ -43,5 +43,3 @@ map.each {elem -> element(id: elem.key) {
         }
     }
 }
-def xmlFile2 = new File(path, "square2.xml")
-xmlFile2 << writer.toString()
