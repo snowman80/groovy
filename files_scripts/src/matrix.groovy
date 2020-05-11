@@ -16,6 +16,8 @@ listOfFiles.each {readerlist.add(new BufferedReader(new FileReader(it)))}
 //записываем в sb построчно из каждого Bufferedreader
 def sb = new StringBuilder()
 100000.times{readerlist.each {sb << it.readLine() + ","}
+//удаляем последнюю запятую
+                sb.deleteCharAt(sb.size()-1)
                 sb << separator
                 }
 
