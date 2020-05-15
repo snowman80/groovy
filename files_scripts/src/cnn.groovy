@@ -31,15 +31,15 @@ def finder (str) {
     if (!uniquePubDates.exists())
         uniquePubDates.createNewFile()
     //создаем set для хранения уникальных дат
-    def set = []
-    def mySet = set as Set
+    def set = [] as Set
+    //пытался объявить Set, который оказался абстрактным, работа в с++ по учебе
     sb.eachLine { sbline ->
         //выделяем только дату и добавляем ее в set
         def searchStr = (sbline =~ /\w{3}, \d{2} \w{3} \d{4}/)
-        mySet.add(searchStr[0])
+        set.add(searchStr[0])
     }
     //в цикле проверяем наличие дат из set в файле, если нет, то добавляем через sb2
-    for(i in mySet)
+    for(i in set)
         if (!uniquePubDates.text.contains(i.toString()))
             sb2 << i.toString() + separator
     //добавляем уникальные даты в файл
