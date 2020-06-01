@@ -12,8 +12,7 @@ static Date randomDate(Range<Date> range) {
     range.from + new Random().nextInt(range.to - range.from + 1)
 }
 //функция генерирует случайный пол
-static String randGender() {if (new Random().nextInt(2) == 1) return "male"
-else return "female"}
+static String randGender() {new Random().nextBoolean() ? "male":"female"}
 //файлы с именами и фамилиями
 def namesBoysFile = new File(path, "USA_Names_Boys.txt")
 def namesGirlsFile = new File(path, "USA_Names_Girls.txt")
@@ -28,7 +27,7 @@ def surnames = surnamesFile.collect{it.capitalize()}
 arrNamesBoys.remove(0)
 arrNamesGirls.remove(0)
 //создаем xml
-def builder = new MarkupBuilder(new FileWriter(new File(path, "usa_employers.xml")))
+def builder = new MarkupBuilder(new FileWriter(new File(path, "usa_employees.xml")))
 
 builder.root {1000.times {
     //для учета пола сохраним его в отдельную переменную
