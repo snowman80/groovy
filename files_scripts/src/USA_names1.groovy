@@ -17,15 +17,15 @@ static String randGender() {new Random().nextBoolean() ? "male":"female"}
 def namesBoysFile = new File(path, "USA_Names_Boys.txt")
 def namesGirlsFile = new File(path, "USA_Names_Girls.txt")
 def surnamesFile = new File(path, "surnames.txt")
-//находим второе слово в каждой строке и пишем в List
-def arrNamesBoys = namesBoysFile.collect {(it =~/\w+/)[1]}
-def arrNamesGirls = namesGirlsFile.collect {(it =~/\w+/)[1]}
+//находим первое слово после табуляции в каждой строке кроме первой и пишем в List
+def arrNamesBoys = new ArrayList()
+namesBoysFile.eachLine {
+    it, line -> if (line>1) arrNamesBoys.add((it =~/(?<=\t)[A-Z]\w+/)[0])}
+def arrNamesGirls = new ArrayList()
+namesGirlsFile.eachLine {
+    it, line -> if (line>1) arrNamesGirls.add((it =~/(?<=\t)[A-Z]\w+/)[0])}
 //тут просто фамилии с маленькой буквы
 def surnames = surnamesFile.collect{it.capitalize()}
-//удаляем первый элемент т.к. туда попадает слово из заголовка
-//желательно избежать этого, т.к. время на удаление 0 элемента может занять много времени
-arrNamesBoys.remove(0)
-arrNamesGirls.remove(0)
 //создаем xml
 def builder = new MarkupBuilder(new FileWriter(new File(path, "usa_employees.xml")))
 
