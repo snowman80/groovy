@@ -1,6 +1,6 @@
 //второе замыкание, котрое возводит получаемое число в квадрат
-def clousure2 = {num2 -> num2*num2}
+def closure2 = {num2 -> num2*num2}
 //первое замыкание, в которое передается число, вызывает второе замыкание, передавая в него полученное число
-def clousure1 = {num1 -> clousure2(num1)}
+def closure1 = {num1 -> closure2(num1)}
 //передаем в первое замыкание число 10
-println clousure1(10)
+println closure1(10)

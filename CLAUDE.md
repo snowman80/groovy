@@ -15,17 +15,17 @@ The scripts fall into two groups:
 
 ### `src/` — closure and file basics
 
-- `clousures.groovy` — bubble sort written as a closure over an `int[]`.
-- `clousures2.groovy` — closure calling another closure (square of a number).
-- `clousure3.groovy` — closure that takes another closure as a parameter.
-- `clousure4.groovy` — applies a square closure to every element via a `for` loop.
-- `clousures5.groovy` — same as `clousure4` but using `.each`.
-- `clousures6.groovy` — closure that returns whichever of two numbers has the larger ones digit.
-- `clFileLength.groovy` — closure that prints the length of a file by name.
+- `closures.groovy` — bubble sort written as a closure over an `int[]`.
+- `closures2.groovy` — closure calling another closure (square of a number).
+- `closure3.groovy` — closure that takes another closure as a parameter.
+- `closure4.groovy` — applies a square closure to every element via a `for` loop.
+- `closures5.groovy` — same as `closure4` but using `.each`.
+- `closures6.groovy` — closure that returns whichever of two numbers has the larger ones digit.
+- `clFileLength.groovy` — closure that prints the length of a file by name. (`cl` here is an abbreviation for "closure", not a typo — leave it alone.)
 - `fileList.groovy` — lists files in a directory via `dir.eachFile(FileType.FILES)`.
 - `dirList.groovy` — lists subdirectories recursively via `dir.eachFileRecurse(FileType.DIRECTORIES)`.
 
-Note the consistent typo **`clousure`** (should be `closure`) in filenames and identifiers. Preserve the existing spelling when editing unless explicitly asked to rename — there is no rename-all convention in place.
+Note that the trailing `s` is inconsistent across this family (`closures`, `closures2`, `closure3`, `closure4`, `closures5`, `closures6`). This reflects how the exercises were originally committed one at a time; each file is a separate exercise, not a refactor of the previous one. Preserve the existing naming when adding neighbors.
 
 ### `files_scripts/src/` — file/XML/JSON exercises
 
@@ -48,7 +48,7 @@ Note the consistent typo **`clousure`** (should be `closure`) in filenames and i
 - All code is **Apache Groovy** (no specified version pinned anywhere in the repo — assume a reasonably modern Groovy 2.x/3.x/4.x that still ships `groovy.xml.MarkupBuilder`, `groovy.xml.XmlParser`, `groovy.xml.XmlSlurper`, `groovy.io.FileType`, and `groovy.json.JsonSlurper`).
 - There is **no build file**. Scripts are meant to be run directly:
   ```
-  groovy src/clousures.groovy
+  groovy src/closures.groovy
   groovy files_scripts/src/files1.groovy
   ```
 - There is **no test suite**, no CI, and no linter configuration. Verification is by running the script and inspecting its output files.
@@ -90,14 +90,14 @@ Two patterns coexist and both should be left as-is where they appear:
 - `new Random().nextInt(...)` for collection indices, booleans, and date offsets.
 
 ### 8. Filenames
-Keep the existing **`clousure`** misspelling in `src/`. Numbered suffixes (`clousures`, `clousures2`, … `clousure6`) are intentional: each file is a separate exercise, not a refactor of the previous one.
+Numbered suffixes in the `closure*` family (`closures`, `closures2`, `closure3`, `closure4`, `closures5`, `closures6`) are intentional: each file is a separate exercise, not a refactor of the previous one. The inconsistent trailing `s` is historical — don't normalize it.
 
 ## Editing guidance for assistants
 
 - **Don't modernize.** No Gradle wrapper, no package declarations, no `@CompileStatic`, no `try-with-resources` retrofits (except where already present, e.g. `Customers.groovy`), no logging framework, no extracted utility modules. The point of the repo is hand-written exercises.
 - **Don't create files that weren't asked for.** In particular, don't add a README, `build.gradle`, `.editorconfig`, `.gitignore`, or wrapper scripts unless the user explicitly requests them.
 - **Don't fix latent bugs by default.** Surface real issues to the user and wait for direction before changing behavior. For example, `cnn.groovy` hits a live HTTP endpoint and will fail offline — that is a runtime dependency, not a bug to "fix" by caching or mocking.
-- **Read before editing.** Many files look similar (five `clousure*` variants, two date-generators, two parallelogram scripts). Always open the specific file the user is asking about rather than inferring from its siblings.
+- **Read before editing.** Many files look similar (six `closure*` variants, two date-generators, two parallelogram scripts). Always open the specific file the user is asking about rather than inferring from its siblings.
 - **Preserve generated-file names.** Downstream scripts read `result.csv`, `1000dates.txt`, `usa_employees.xml`, etc. by exact name. Renaming an output file in one script silently breaks another.
 
 ## Development workflow

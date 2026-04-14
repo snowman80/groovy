@@ -1,7 +1,7 @@
 //замыкание, которое возвраащет квадрат числа
-def clousure2 = {num1 -> num1*num1}
+def closure2 = {num1 -> num1*num1}
 //создаем массив чисел
 def numbers = [1, 3, 6, 15, 5, 100]
 //в цикле пробегаем по массиву вызывая замыкание
 for (i in numbers)
-    println(clousure2(i))
+    println(closure2(i))
