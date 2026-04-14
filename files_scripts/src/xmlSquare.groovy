@@ -1,5 +1,12 @@
 import groovy.xml.MarkupBuilder
 
+//описываем прямоугольник
+class Square {
+    int length
+    int width
+    String uuid
+}
+
 //папка в которой будем работать
 def path = "D:\\EPAM\\groovy_projects\\files_scripts\\"
 

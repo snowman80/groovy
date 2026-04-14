@@ -9,19 +9,21 @@ def list = new XmlSlurper().parse(source)
 Map<String, Integer> mapFN = new HashMap<String, Integer>()
 //обращаемся к ноде по ее пути и записываем в Map, считая кол-во
 list.employee.personal_info.first_name.each {
-    Integer count = mapFN.get(it)
+    def key = it.toString()
+    Integer count = mapFN.get(key)
     if (!count) {
         count = 0
     }
-    mapFN.put(it.toString(), count + 1)
+    mapFN.put(key, count + 1)
 }
 Map<String, Integer> mapLN = new HashMap<String, Integer>()
 list.employee.personal_info.last_name.each {
-    Integer count = mapFN.get(it)
+    def key = it.toString()
+    Integer count = mapLN.get(key)
     if (!count) {
         count = 0
     }
-    mapLN.put(it.toString(), count + 1)
+    mapLN.put(key, count + 1)
 }
 //читаем Мар в sb
 def resultFN = new StringBuilder()
@@ -36,4 +38,4 @@ mapLN.each {resultLN << it.key << "," << it.value << separator}
 
 //запись sb в файл
 File output2 = new File(path,"countOfLastNames.csv")
-output2 << resultFN
+output2 << resultLN

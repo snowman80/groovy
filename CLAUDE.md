@@ -37,9 +37,9 @@ Note the consistent typo **`clousure`** (should be `closure`) in filenames and i
 - `transformDatesFile.groovy` — reformats an existing dates file from `yyyy-MM-dd` to `dd.MM.yyyy` using a temp file + rename.
 - `parallelogram1.groovy` — defines a `Para` POGO, generates 1000 instances, filters by `length > 400` and half-perimeter, prints the index of the max-area element.
 - `squareWithID.groovy` — same idea but with a `Square` POGO that carries a UUID and is stored in a `HashMap`.
-- `xmlSquare.groovy` — emits the `Square` map as XML in two styles: manual `StringBuilder` and `groovy.xml.MarkupBuilder`. **Depends on `Square` from `squareWithID.groovy`** being on the classpath or declared in the same script — running it standalone will fail to resolve `Square`.
+- `xmlSquare.groovy` — emits the `Square` map as XML in two styles: manual `StringBuilder` and `groovy.xml.MarkupBuilder`. Defines its own inline `Square` POGO so it is self-contained.
 - `USA_names1.groovy` — reads `USA_Names_Boys.txt`, `USA_Names_Girls.txt`, `surnames.txt`, and builds `usa_employees.xml` with 1000 employee entries using `MarkupBuilder`. Skips header lines via an `eachLine { it, line -> if (line > 1) ... }` pattern and extracts names with the regex `(?<=\t)[A-Z]\w+`.
-- `countOfNames.groovy` — parses `usa_employees.xml` with `XmlSlurper` and writes first/last name frequency CSVs. **Known bug:** the last-names loop looks up counts in `mapFN` instead of `mapLN`, and writes `resultFN` into `countOfLastNames.csv`. Don't "fix" this silently unless asked — it is exercise code, and the git history shows these files are touched issue-by-issue.
+- `countOfNames.groovy` — parses `usa_employees.xml` with `XmlSlurper` and writes first/last name frequency CSVs.
 - `cnn.groovy` — prompts for a word, fetches the CNN World RSS via `XmlParser`, counts occurrences in each item's description (after stripping `<img … />`), and writes matched `pubDate`s plus a de-duplicated set of dates into files.
 - `Customers.groovy` — `HttpURLConnection` GET against the OData Northwind demo service, parses JSON with `JsonSlurper`, and writes all `CustomerID`s to `customers.txt`.
 
@@ -96,7 +96,7 @@ Keep the existing **`clousure`** misspelling in `src/`. Numbered suffixes (`clou
 
 - **Don't modernize.** No Gradle wrapper, no package declarations, no `@CompileStatic`, no `try-with-resources` retrofits (except where already present, e.g. `Customers.groovy`), no logging framework, no extracted utility modules. The point of the repo is hand-written exercises.
 - **Don't create files that weren't asked for.** In particular, don't add a README, `build.gradle`, `.editorconfig`, `.gitignore`, or wrapper scripts unless the user explicitly requests them.
-- **Don't fix latent bugs by default.** `countOfNames.groovy` has a mis-wired map; `xmlSquare.groovy` depends on a class defined in a sibling file; `cnn.groovy` hits a live HTTP endpoint and will fail offline. Each of these is a real issue, but fixing them changes the meaning of the exercise. Surface them to the user and wait for direction.
+- **Don't fix latent bugs by default.** Surface real issues to the user and wait for direction before changing behavior. For example, `cnn.groovy` hits a live HTTP endpoint and will fail offline — that is a runtime dependency, not a bug to "fix" by caching or mocking.
 - **Read before editing.** Many files look similar (five `clousure*` variants, two date-generators, two parallelogram scripts). Always open the specific file the user is asking about rather than inferring from its siblings.
 - **Preserve generated-file names.** Downstream scripts read `result.csv`, `1000dates.txt`, `usa_employees.xml`, etc. by exact name. Renaming an output file in one script silently breaks another.
 
